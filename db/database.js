@@ -10,7 +10,7 @@ export const initDB = () => {
         store_name TEXT NOT NULL,
         expiration_date TEXT NOT NULL,
         qr_value TEXT NOT NULL,
-        note TEXT,
+        receipt_value FLOAT NOT NULL,
         created_at TEXT NOT NULL
         );   
     `);
@@ -20,9 +20,9 @@ export const getAllReceipts = () => {
     return db.getAllSync('SELECT * FROM receipts ORDER BY created_at');
 }
 
-export const addReceipt = ({ id, store_name, expiration_date, qr_value, note }) => {
+export const addReceipt = ({ id, store_name, expiration_date, qr_value, receipt_value }) => {
   db.runSync(
-    'INSERT INTO receipts (id, store_name, expiration_date, qr_value, note, created_at) VALUES (?, ?, ?, ?, ?, ?)',
-    [id, store_name, expiration_date, qr_value, note ?? '', new Date().toISOString()]
+    'INSERT INTO receipts (id, store_name, expiration_date, qr_value, receipt_value, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+    [id, store_name, expiration_date, qr_value, receipt_value, new Date().toISOString()]
   );
 };
