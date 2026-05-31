@@ -3,13 +3,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import AddScreen from './AddScreen';
 import DisplayScreen from './DisplayScreen';
-import { initDB } from './db/database';
+import { addReceipt, getAllReceipts, initDB } from './db/database';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
   initDB();
+  addReceipt({id:'1', store_name:'Biedra', expiration_date: '2026-05-31', qr_value:'acb12345', note:'paragon'});
+  console.log(getAllReceipts());
 
   return (
     <NavigationContainer>
