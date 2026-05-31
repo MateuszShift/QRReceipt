@@ -4,14 +4,17 @@ import HomeScreen from './HomeScreen';
 import AddScreen from './AddScreen';
 import DisplayScreen from './DisplayScreen';
 import { addReceipt, getAllReceipts, initDB } from './db/database';
+import {useEffect} from 'react'
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  initDB();
-  addReceipt({id:'1', store_name:'Biedra', expiration_date: '2026-05-31', qr_value:'acb12345', receipt_value:0.5});
-  addReceipt({id:'2', store_name:'Biedra', expiration_date: '2026-05-21', qr_value:'acb12345', receipt_value:20.0})
+  useEffect(() => {
+    initDB();
+    addReceipt({id:'1', store_name:'Biedra', expiration_date: '2026-05-31', qr_value:'acb12345', receipt_value:0.5});
+    addReceipt({id:'2', store_name:'Biedra', expiration_date: '2026-05-21', qr_value:'acb12345', receipt_value:20.0});
+  }, []);
 
   return (
     <NavigationContainer>
