@@ -1,13 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
 import HomeScreen from './HomeScreen';
 import AddScreen from './AddScreen';
 import DisplayScreen from './DisplayScreen';
+import { initDB } from './db/database';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  initDB();
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
