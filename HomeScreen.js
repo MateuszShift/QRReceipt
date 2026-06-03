@@ -32,7 +32,7 @@ export default function HomeScreen( {navigation} ) {
                     >
                         <Text style={styles.storeName}>{item.store_name}</Text>
                         <Text style={styles.dateText}>{item.expiration_date}</Text>
-                        <Text style={styles.storeName}>{item.receipt_value}</Text>
+                        <Text style={styles.storeName}>{item.receipt_value.toFixed(2)} zł</Text>
                     </TouchableOpacity>
                 )}
             />

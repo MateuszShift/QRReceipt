@@ -3,7 +3,6 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabaseSync('receipts.db');
 
 export const initDB = () => {
-    db.execSync(`DROP TABLE IF EXISTS receipts`);
     db.execSync(`
         CREATE TABLE IF NOT EXISTS receipts (
         id TEXT PRIMARY KEY,
@@ -26,3 +25,7 @@ export const addReceipt = ({ id, store_name, expiration_date, qr_value, receipt_
     [id, store_name, expiration_date, qr_value, receipt_value, new Date().toISOString()]
   );
 };
+
+export const deleteReceipt = ( id ) => {
+  db.runSync('DELETE FROM receipts WHERE id=?', [id]);
+}

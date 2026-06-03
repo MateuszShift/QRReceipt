@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { View, Text, Dimensions, Alert, StyleSheet, Platform, TouchableOpacity } from "react-native"
 import * as Brightness from 'expo-brightness'
 import QRCode from 'react-native-qrcode-svg';
+import { deleteReceipt } from "./db/database";
 
 const {width} = Dimensions.get('window');
 const QR_SIZE = Math.min(width-80, 300);
