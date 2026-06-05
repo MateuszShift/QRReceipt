@@ -1,11 +1,18 @@
 import { useEffect, useRef } from "react";
 import { View, Text, Dimensions, Alert, StyleSheet, Platform, TouchableOpacity } from "react-native"
 import * as Brightness from 'expo-brightness'
-import QRCode from 'react-native-qrcode-svg';
+import Barcode from 'react-native-barcode-svg';
 import { deleteReceipt } from "./db/database";
 
-const {width} = Dimensions.get('window');
-const QR_SIZE = Math.min(width-80, 300);
+const BARCODE_FORMAT_MAP = {
+  ean13: 'EAN13',
+  ean8: 'EAN8',
+  code128: 'CODE128',
+  code39: 'CODE39',
+  upce: 'UPC',
+  upca: 'UPC',
+  qr: 'CODE128',
+};
 
 export default function DisplayScreen({route, navigation}) {
 
@@ -65,12 +72,14 @@ export default function DisplayScreen({route, navigation}) {
 
       <View style={styles.qrContainer}>
         <View style={styles.qrWrapper}>
-            <QRCode
+            <Barcode
                 value={receipt.qr_value}
-                size={QR_SIZE}
+                format={BARCODE_FORMAT_MAP[receipt.barcode_type] ?? 'CODE128'}
+                singleBarWidth={2}
+                height={100}
                 backgroundColor="white"
-                color="black"
-                quietZone={16}
+                lineColor="black"
+                onError={(e) => console.warn('Barcode render error:', e)}
             />
         </View>
         <Text style={styles.hint}>Skieruj skaner kasy na ten kod</Text>

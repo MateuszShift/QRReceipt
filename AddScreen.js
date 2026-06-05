@@ -7,6 +7,7 @@ import * as Crypto from 'expo-crypto';
 export default function AddScreen( {navigation} ) {
 
     const [qrValue, setQrValue] = useState('');
+    const [barcodeType, setBarcodeType] = useState('qr');
     const [storeName, setStoreName] =useState('');
     const [expirationDate, setExpirationDate] = useState(new Date().toISOString().split('T')[0]);
     const [receiptValue, setReceiptValue] = useState('');
@@ -28,10 +29,11 @@ export default function AddScreen( {navigation} ) {
         setMode('scan');
     }
 
-    const handleBarcodeScanned = ( {data} ) => {
+    const handleBarcodeScanned = ( {data, type} ) => {
         if (scanned) return;
         setScanned(true);
         setQrValue(data);
+        setBarcodeType(type ?? 'qr');
         setMode('form');
     }
 
@@ -49,7 +51,7 @@ export default function AddScreen( {navigation} ) {
             return;
         }
 
-        addReceipt({id: Crypto.randomUUID(), store_name: storeName.trim(), expiration_date: expirationDate.trim(), qr_value: qrValue.trim(), receipt_value: parseFloat(receiptValue)})
+        addReceipt({id: Crypto.randomUUID(), store_name: storeName.trim(), expiration_date: expirationDate.trim(), qr_value: qrValue.trim(), barcode_type: barcodeType, receipt_value: parseFloat(receiptValue)})
 
         navigation.goBack();
     }
